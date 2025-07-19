@@ -1,19 +1,13 @@
 import {View, Text, KeyboardAvoidingView, Platform, ScrollView, Dimensions, ImageBackground, Image} from 'react-native'
 import React from 'react'
 import {SafeAreaView} from "react-native-safe-area-context";
-import {Redirect, Slot} from "expo-router";
+import {Slot} from "expo-router";
 import {platform} from "node:os";
 import {images} from "@/constants";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
-import {router} from "expo-router";
-import useAuthStore from "@/store/auth.store";
 
-export default function AuthLayout() {
-    const {isAuthenticated} = useAuthStore();
-
-    if (isAuthenticated) return <Redirect href="/" />
-
+export default function _Layout() {
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView className="bg-white h-full" keyboardShouldPersistTaps="handled">
@@ -23,19 +17,10 @@ export default function AuthLayout() {
 
                 </View>
 
-                {/*
-                (OLD BLOCK OF CODE IF NEEDED, UNCOMMENT)
-                <CustomInput
-                    placeholder="Enter your email"
-                    value={''}
-                    onChangeText={()=> {}}
-                    label="Email"
-                    keyboardType="email-address"
-                />
-                <CustomButton />
-                */}
-                <Slot />
+
+
             </ScrollView>
+            <Slot/>
         </KeyboardAvoidingView>
     )
 }

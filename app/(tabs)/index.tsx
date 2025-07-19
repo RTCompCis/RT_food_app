@@ -1,12 +1,21 @@
-import {FlatList, Pressable, Text, View, Image, TouchableOpacity} from "react-native";
+import {FlatList, Pressable, Text, View, Image, TouchableOpacity, Button} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import "../globals.css";
 import {images, offers} from "@/constants";
-import {Fragment} from "react";
+import React, {Fragment} from "react";
 import cn from 'clsx';
 import CartButton from "@/components/CartButton";
+import {router} from "expo-router";
+import CustomButton from "@/components/CustomButton";
+import * as Sentry from "@sentry/react-native";
+import useAuthStore from "@/store/auth.store";
 
 export default function Index() {
+    const {user} = useAuthStore();
+
+    // shows user info in Console in clear nice format.
+    console.log("USER:", JSON.stringify(user, null, 2));
+
   return (
       <SafeAreaView className="flex-1 bg-white">
           <FlatList
@@ -19,6 +28,12 @@ export default function Index() {
                               <Image source={images.arrowDown} className="size-3" resizeMode="contain"/>
                               <Text className="paragraph-bold text-dark-100">United States</Text>
                           </TouchableOpacity>
+
+                          <CustomButton
+                              // THIS IS A TEMPORARY CUSTOM BUTTON FOR SIGN IN DELETE THIS AFTER USE
+                              title="Sign In"
+                              onPress={() => router.push("/(auth)/sign-in")}
+                          />
                       </View>
 
                       <CartButton/>
